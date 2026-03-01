@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nived Ponnapa K | Tennis. Robotics. Art.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ========== RESET & BASE ========== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --lime: #AAFF00;
+      --navy: #0a0a2e;
+      --dark: #060618;
+      --blue: #00d4ff;
+      --purple: #b44dff;
+      --white: #ffffff;
+      --gray: #a0a0c0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ========== NAVIGATION ========== */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      background: rgba(6, 6, 24, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(170, 255, 0, 0.1);
+    }
+
+    nav .logo {
+      font-family: 'Playfair Display', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--lime);
+      text-decoration: none;
+      letter-spacing: 2px;
+    }
+
+    nav .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    nav .nav-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    nav .nav-links a:hover { color: var(--lime); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .hamburger span {
+      width: 28px;
+      height: 3px;
+      background: var(--lime);
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* ========== HERO ========== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 50%, rgba(170, 255, 0, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 50%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 50% 80%, rgba(180, 77, 255, 0.05) 0%, transparent 50%);
+      animation: heroGlow 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes heroGlow {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(-2%, -2%) rotate(3deg); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-content h1 {
+      font-family: 'Playfair Display', sans-serif;
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .hero-content h1 .first-name {
+      display: block;
+      color: var(--white);
+    }
+
+    .hero-content h1 .last-name {
+      display: block;
+      color: var(--lime);
+      font-size: 0.6em;
+    }
+
+    .hero-tagline {
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      color: var(--gray);
+      margin-bottom: 2rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .hero-tagline span {
+      color: var(--blue);
+    }
+
+    .hero-rank {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      border: 2px solid var(--lime);
+      color: var(--lime);
+      font-family: 'Playfair Display', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(170, 255, 0, 0.3); }
+      50% { box-shadow: 0 0 20px 5px rgba(170, 255, 0, 0.15); }
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--gray);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+
+    .scroll-indicator .arrow {
+      width: 2px;
+      height: 30px;
+      background: linear-gradient(to bottom, var(--lime), transparent);
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* ========== SECTIONS ========== */
+    section {
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-header h2 {
+      font-family: 'Playfair Display', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-header .accent-line {
+      width: 60px;
+      height: 4px;
+      margin: 1rem auto;
+      border-radius: 2px;
+    }
+
+    .accent-lime { background: var(--lime); }
+    .accent-blue { background: var(--blue); }
+    .accent-purple { background: var(--purple); }
+
+    /* ========== ABOUT ========== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-image {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: linear-gradient(135deg, var(--navy), rgba(170, 255, 0, 0.1));
+      border-radius: 20px;
+      border: 2px solid rgba(170, 255, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: var(--gray);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about-text p {
+      color: var(--gray);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+    }
+
+    .about-text .highlight {
+      color: var(--lime);
+      font-weight: 600;
+    }
+
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 1.5rem;
+    }
+
+    .about-tags span {
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .tag-lime { background: rgba(170, 255, 0, 0.15); color: var(--lime); border: 1px solid rgba(170, 255, 0, 0.3); }
+    .tag-blue { background: rgba(0, 212, 255, 0.15); color: var(--blue); border: 1px solid rgba(0, 212, 255, 0.3); }
+    .tag-purple { background: rgba(180, 77, 255, 0.15); color: var(--purple); border: 1px solid rgba(180, 77, 255, 0.3); }
+
+    /* ========== TENNIS ========== */
+    #tennis {
+      background: linear-gradient(180deg, transparent, rgba(170, 255, 0, 0.03), transparent);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background: rgba(170, 255, 0, 0.05);
+      border: 1px solid rgba(170, 255, 0, 0.15);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(170, 255, 0, 0.1);
+    }
+
+    .stat-card .number {
+      font-family: 'Playfair Display', sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--lime);
+      line-height: 1;
+    }
+
+    .stat-card .label {
+      color: var(--gray);
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .tennis-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .tennis-image {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, var(--navy), rgba(170, 255, 0, 0.1));
+      border-radius: 16px;
+      border: 2px solid rgba(170, 255, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray);
+      font-size: 0.9rem;
+      overflow: hidden;
+    }
+
+    .tennis-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .achievements-list {
+      list-style: none;
+    }
+
+    .achievements-list li {
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(170, 255, 0, 0.1);
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      color: var(--gray);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .achievements-list li::before {
+      content: '';
+      min-width: 8px;
+      height: 8px;
+      background: var(--lime);
+      border-radius: 50%;
+      margin-top: 0.5rem;
+    }
+
+    /* ========== ROBOTICS ========== */
+    .robotics-card {
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(180, 77, 255, 0.05));
+      border: 1px solid rgba(0, 212, 255, 0.15);
+      border-radius: 20px;
+      padding: 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .robotics-text h3 {
+      font-family: 'Playfair Display', sans-serif;
+      font-size: 2rem;
+      color: var(--blue);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .robotics-text p {
+      color: var(--gray);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1.5rem;
+    }
+
+    .tech-stack span {
+      padding: 0.4rem 1rem;
+      background: rgba(0, 212, 255, 0.1);
+      border: 1px solid rgba(0, 212, 255, 0.25);
+      border-radius: 50px;
+      color: var(--blue);
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .robotics-image {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, var(--navy), rgba(0, 212, 255, 0.1));
+      border-radius: 16px;
+      border: 2px solid rgba(0, 212, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray);
+      font-size: 0.9rem;
+      overflow: hidden;
+    }
+
+    .robotics-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ========== ART ========== */
+    #art {
+      background: linear-gradient(180deg, transparent, rgba(180, 77, 255, 0.03), transparent);
+    }
+
+    .art-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .art-card {
+      aspect-ratio: 3/4;
+      background: linear-gradient(135deg, var(--navy), rgba(180, 77, 255, 0.1));
+      border-radius: 16px;
+      border: 2px solid rgba(180, 77, 255, 0.2);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray);
+      font-size: 0.9rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .art-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(180, 77, 255, 0.15);
+    }
+
+    .art-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .art-card .overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.5rem;
+      background: linear-gradient(to top, rgba(6, 6, 24, 0.95), transparent);
+      transform: translateY(100%);
+      transition: transform 0.3s;
+    }
+
+    .art-card:hover .overlay {
+      transform: translateY(0);
+    }
+
+    .art-card .overlay h4 {
+      font-family: 'Playfair Display', sans-serif;
+      color: var(--purple);
+      font-size: 1.1rem;
+      text-transform: uppercase;
+    }
+
+    .art-card .overlay p {
+      color: var(--gray);
+      font-size: 0.85rem;
+      margin-top: 0.3rem;
+    }
+
+    /* ========== CONTACT ========== */
+    .contact-content {
+      text-align: center;
+    }
+
+    .contact-content p {
+      color: var(--gray);
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.8;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-links a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .contact-links a:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-lime {
+      background: var(--lime);
+      color: var(--dark);
+    }
+
+    .btn-lime:hover {
+      box-shadow: 0 8px 25px rgba(170, 255, 0, 0.3);
+    }
+
+    .btn-outline {
+      border: 2px solid var(--blue);
+      color: var(--blue);
+    }
+
+    .btn-outline:hover {
+      box-shadow: 0 8px 25px rgba(0, 212, 255, 0.2);
+    }
+
+    /* ========== FOOTER ========== */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--gray);
+      font-size: 0.8rem;
+      border-top: 1px solid rgba(170, 255, 0, 0.1);
+    }
+
+    /* ========== ANIMATIONS ========== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 768px) {
+      nav .nav-links { display: none; }
+      nav .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--dark);
+        justify-content: center;
+        align-items: center;
+        gap: 2.5rem;
+      }
+      nav .nav-links.active a { font-size: 1.3rem; }
+      .hamburger { display: flex; }
+
+      .about-grid,
+      .tennis-content,
+      .robotics-card {
+        grid-template-columns: 1fr;
+      }
+
+      section { padding: 4rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="#hero" class="logo">NIVED</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about" onclick="closeMenu()">About</a></li>
+      <li><a href="#tennis" onclick="closeMenu()">Tennis</a></li>
+      <li><a href="#robotics" onclick="closeMenu()">Robotics</a></li>
+      <li><a href="#art" onclick="closeMenu()">Art</a></li>
+      <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <h1>
+        <span class="first-name">Nived</span>
+        <span class="last-name">Ponnapa K</span>
+      </h1>
+      <p class="hero-tagline">Tennis <span>&bull;</span> Robotics <span>&bull;</span> Art</p>
+      <div class="hero-rank">Asian Rank #26 &mdash; ITF Junior</div>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="arrow"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-header fade-in">
+      <h2>About Me</h2>
+      <div class="accent-line accent-lime"></div>
+    </div>
+    <div class="about-grid fade-in">
+      <div class="about-image">
+        <img src="images/nived-profile.jpg" alt="Nived Ponnapa K">
+      </div>
+      <div class="about-text">
+        <p>
+          I'm <span class="highlight">Nived Ponnapa K</span>, a Grade 11 student with a passion that stretches far beyond the classroom.
+        </p>
+        <p>
+          As an international-level tennis player on the <span class="highlight">ITF Junior circuit</span>, I've competed across Asia and achieved a career-high <span class="highlight">Asian Rank of #26</span>. Tennis has taught me discipline, resilience, and the mindset to push beyond limits.
+        </p>
+        <p>
+          But my curiosity doesn't stop at the court. I'm deeply into <span class="highlight">robotics</span> &mdash; having built a drone from scratch &mdash; and I express my creative side through <span class="highlight">sketching</span>, particularly bringing characters like Goku from Dragon Ball Z to life.
+        </p>
+        <div class="about-tags">
+          <span class="tag-lime">ITF Junior Player</span>
+          <span class="tag-blue">Robotics Builder</span>
+          <span class="tag-purple">Artist</span>
+          <span class="tag-lime">Grade 11</span>
+          <span class="tag-blue">Fitness Enthusiast</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TENNIS -->
+  <section id="tennis">
+    <div class="section-header fade-in">
+      <h2>Tennis</h2>
+      <div class="accent-line accent-lime"></div>
+    </div>
+    <div class="stats-grid fade-in">
+      <div class="stat-card">
+        <div class="number">#26</div>
+        <div class="label">Career High Asian Rank</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">ITF</div>
+        <div class="label">Junior Circuit Player</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">State</div>
+        <div class="label">Level Champion</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">National</div>
+        <div class="label">Level Achiever</div>
+      </div>
+    </div>
+    <div class="tennis-content fade-in">
+      <div class="tennis-image">
+        <img src="images/nived-tennis.JPG" alt="Nived playing tennis">
+      </div>
+      <div>
+        <h3 style="font-family:'Playfair Display',sans-serif;font-size:1.5rem;color:var(--lime);text-transform:uppercase;margin-bottom:1.5rem;">Achievements</h3>
+        <ul class="achievements-list">
+          <li>Competed in the ITF Junior circuit at the international level</li>
+          <li>Career High Asian Ranking of #26</li>
+          <li>Multiple State-level championship titles</li>
+          <li>National-level tournament awards and recognition</li>
+          <li>Dedicated to fitness and a disciplined lifestyle on and off the court</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROBOTICS -->
+  <section id="robotics">
+    <div class="section-header fade-in">
+      <h2>Robotics</h2>
+      <div class="accent-line accent-blue"></div>
+    </div>
+    <div class="robotics-card fade-in">
+      <div class="robotics-text">
+        <h3>Drone — Built From Scratch</h3>
+        <p>
+          Beyond the tennis court, I channel my curiosity into engineering. I designed and built a fully functional drone from the ground up &mdash; from selecting components and wiring circuits to programming the flight controller.
+        </p>
+        <p>
+          This project was part of a greater vision to explore how technology can solve real-world problems. Every challenge in the build &mdash; balancing propellers, calibrating sensors, debugging code &mdash; taught me problem-solving skills that go far beyond the workshop.
+        </p>
+        <div class="tech-stack">
+          <span>Flight Controller</span>
+          <span>Arduino</span>
+          <span>3D Design</span>
+          <span>Electronics</span>
+          <span>Programming</span>
+        </div>
+      </div>
+      <div class="robotics-image">
+        <img src="images/nived-drone.jpg" alt="Nived's custom-built drone">
+      </div>
+    </div>
+  </section>
+
+  <!-- ART -->
+  <section id="art">
+    <div class="section-header fade-in">
+      <h2>Art</h2>
+      <div class="accent-line accent-purple"></div>
+    </div>
+    <div class="art-grid fade-in">
+      <div class="art-card">
+        <img src="images/sketch-goku-1.jpg" alt="Goku sketch">
+        <div class="overlay">
+          <h4>Goku &mdash; Ultra Instinct</h4>
+          <p>Pencil sketch</p>
+        </div>
+      </div>
+      <div class="art-card">
+        <img src="images/sketch-goku-2.jpg" alt="Goku sketch">
+        <div class="overlay">
+          <h4>Goku &mdash; Super Saiyan</h4>
+          <p>Pencil sketch</p>
+        </div>
+      </div>
+      <div class="art-card">
+        <img src="images/sketch-goku-3.jpg" alt="Dragon Ball Z sketch">
+        <div class="overlay">
+          <h4>Dragon Ball Z</h4>
+          <p>Pencil sketch</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-header fade-in">
+      <h2>Get In Touch</h2>
+      <div class="accent-line accent-lime"></div>
+    </div>
+    <div class="contact-content fade-in">
+      <p>
+        Whether it's about tennis, robotics collaborations, or just connecting &mdash; I'd love to hear from you.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:nived@example.com" class="btn-lime">Email Me</a>
+        <a href="https://instagram.com/" target="_blank" class="btn-outline">Instagram</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 Nived Ponnapa K. All rights reserved.</p>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // Mobile menu toggle
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('active');
+    }
+    function closeMenu() {
+      document.getElementById('navLinks').classList.remove('active');
+    }
+
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Active nav link on scroll
+    const sections = document.querySelectorAll('section[id]');
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY + 100;
+      sections.forEach(section => {
+        const top = section.offsetTop;
+        const height = section.offsetHeight;
+        const id = section.getAttribute('id');
+        const link = document.querySelector(`nav a[href="#${id}"]`);
+        if (link) {
+          if (scrollY >= top && scrollY < top + height) {
+            link.style.color = '#AAFF00';
+          } else {
+            link.style.color = '';
+          }
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
