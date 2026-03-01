@@ -91,82 +91,66 @@
       min-height: 100vh;
       display: flex;
       align-items: center;
-      justify-content: center;
-      text-align: center;
+      justify-content: flex-start;
+      text-align: left;
       position: relative;
       overflow: hidden;
+      background: url('images/nived-tennis.JPG') center center / cover no-repeat;
     }
 
     .hero::before {
       content: '';
       position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at 30% 50%, rgba(170, 255, 0, 0.08) 0%, transparent 50%),
-                  radial-gradient(circle at 70% 50%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
-                  radial-gradient(circle at 50% 80%, rgba(180, 77, 255, 0.05) 0%, transparent 50%);
-      animation: heroGlow 8s ease-in-out infinite alternate;
-    }
-
-    @keyframes heroGlow {
-      0% { transform: translate(0, 0) rotate(0deg); }
-      100% { transform: translate(-2%, -2%) rotate(3deg); }
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, rgba(6, 6, 24, 0.45) 0%, rgba(6, 6, 24, 0.75) 40%, rgba(6, 6, 24, 0.92) 70%, rgba(6, 6, 24, 0.97) 100%);
+      z-index: 1;
     }
 
     .hero-content {
       position: relative;
-      z-index: 1;
+      z-index: 2;
+      padding-left: 25%;
+      padding-right: 5%;
+      max-width: 100%;
     }
 
-    .hero-content h1 {
+    .hero-content .hero-text {
       font-family: 'Playfair Display', sans-serif;
-      font-size: clamp(3rem, 8vw, 7rem);
+      font-size: clamp(2rem, 4.5vw, 3.8rem);
       font-weight: 700;
-      text-transform: uppercase;
-      line-height: 1;
-      margin-bottom: 1rem;
-    }
-
-    .hero-content h1 .first-name {
-      display: block;
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
       color: var(--white);
     }
 
-    .hero-content h1 .last-name {
-      display: block;
-      color: var(--lime);
-      font-size: 0.6em;
+    .nived-wave {
+      background: linear-gradient(90deg, var(--purple), var(--blue), var(--purple), var(--blue), var(--purple));
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: nivedWave 4s ease-in-out infinite;
+    }
+
+    @keyframes nivedWave {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .hero-tagline {
-      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      font-size: clamp(1rem, 2.2vw, 1.4rem);
       color: var(--gray);
       margin-bottom: 2rem;
-      letter-spacing: 4px;
+      letter-spacing: 3px;
       text-transform: uppercase;
     }
 
     .hero-tagline span {
       color: var(--blue);
-    }
-
-    .hero-rank {
-      display: inline-block;
-      padding: 0.8rem 2rem;
-      border: 2px solid var(--lime);
-      color: var(--lime);
-      font-family: 'Playfair Display', sans-serif;
-      font-size: 1.1rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(170, 255, 0, 0.3); }
-      50% { box-shadow: 0 0 20px 5px rgba(170, 255, 0, 0.15); }
     }
 
     .scroll-indicator {
@@ -183,6 +167,7 @@
       letter-spacing: 2px;
       text-transform: uppercase;
       animation: bounce 2s infinite;
+      z-index: 2;
     }
 
     .scroll-indicator .arrow {
@@ -328,6 +313,19 @@
       letter-spacing: 1px;
     }
 
+    .stat-card.wtn-card {
+      background: rgba(0, 212, 255, 0.08);
+      border-color: rgba(0, 212, 255, 0.25);
+    }
+
+    .stat-card.wtn-card .number {
+      color: var(--blue);
+    }
+
+    .stat-card.wtn-card:hover {
+      box-shadow: 0 10px 30px rgba(0, 212, 255, 0.15);
+    }
+
     .tennis-content {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -355,6 +353,29 @@
       object-fit: cover;
     }
 
+    .itf-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      padding: 0.7rem 1.5rem;
+      border: 2px solid var(--lime);
+      border-radius: 50px;
+      color: var(--lime);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: background 0.3s, color 0.3s, transform 0.3s;
+    }
+
+    .itf-link:hover {
+      background: var(--lime);
+      color: var(--dark);
+      transform: translateY(-2px);
+    }
+
     .achievements-list {
       list-style: none;
     }
@@ -380,20 +401,24 @@
     }
 
     /* ========== ROBOTICS ========== */
+    .robotics-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
     .robotics-card {
       background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(180, 77, 255, 0.05));
       border: 1px solid rgba(0, 212, 255, 0.15);
       border-radius: 20px;
       padding: 3rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: center;
+      display: flex;
+      flex-direction: column;
     }
 
     .robotics-text h3 {
       font-family: 'Playfair Display', sans-serif;
-      font-size: 2rem;
+      font-size: 1.6rem;
       color: var(--blue);
       text-transform: uppercase;
       margin-bottom: 1rem;
@@ -434,12 +459,42 @@
       color: var(--gray);
       font-size: 0.9rem;
       overflow: hidden;
+      margin-top: 1.5rem;
     }
 
     .robotics-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+    }
+
+    .coming-soon-card {
+      background: linear-gradient(135deg, rgba(180, 77, 255, 0.03), rgba(0, 212, 255, 0.03));
+      border: 2px dashed rgba(180, 77, 255, 0.25);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+    }
+
+    .coming-soon-text {
+      text-align: center;
+    }
+
+    .coming-soon-text h3 {
+      font-family: 'Playfair Display', sans-serif;
+      font-size: 2rem;
+      color: var(--purple);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      opacity: 0.6;
+      animation: comingSoonPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes comingSoonPulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.8; }
     }
 
     /* ========== ART ========== */
@@ -603,9 +658,17 @@
       nav .nav-links.active a { font-size: 1.3rem; }
       .hamburger { display: flex; }
 
+      .hero-content {
+        padding-left: 8%;
+        padding-right: 8%;
+      }
+
       .about-grid,
-      .tennis-content,
-      .robotics-card {
+      .tennis-content {
+        grid-template-columns: 1fr;
+      }
+
+      .robotics-grid {
         grid-template-columns: 1fr;
       }
 
@@ -633,12 +696,10 @@
   <!-- HERO -->
   <section class="hero" id="hero">
     <div class="hero-content">
-      <h1>
-        <span class="first-name">Nived</span>
-        <span class="last-name">Ponnapa K</span>
-      </h1>
-      <p class="hero-tagline">Tennis <span>&bull;</span> Robotics <span>&bull;</span> Art</p>
-      <div class="hero-rank">Asian Rank #26 &mdash; ITF Junior</div>
+      <div class="hero-text">
+        Hi, I'm <span class="nived-wave">Nived</span>, and I work with passion and purpose
+      </div>
+      <p class="hero-tagline">International Athlete <span>&bull;</span> Robotics Builder</p>
     </div>
     <div class="scroll-indicator">
       <span>Scroll</span>
@@ -671,7 +732,6 @@
           <span class="tag-blue">Robotics Builder</span>
           <span class="tag-purple">Artist</span>
           <span class="tag-lime">Grade 11</span>
-          <span class="tag-blue">Fitness Enthusiast</span>
         </div>
       </div>
     </div>
@@ -689,16 +749,16 @@
         <div class="label">Career High Asian Rank</div>
       </div>
       <div class="stat-card">
-        <div class="number">ITF</div>
-        <div class="label">Junior Circuit Player</div>
+        <div class="number">3417</div>
+        <div class="label">Career High International Rank</div>
+      </div>
+      <div class="stat-card wtn-card">
+        <div class="number">27.1</div>
+        <div class="label">World Tennis Number</div>
       </div>
       <div class="stat-card">
-        <div class="number">State</div>
-        <div class="label">Level Champion</div>
-      </div>
-      <div class="stat-card">
-        <div class="number">National</div>
-        <div class="label">Level Achiever</div>
+        <div class="number">Top 75</div>
+        <div class="label">National Player</div>
       </div>
     </div>
     <div class="tennis-content fade-in">
@@ -708,12 +768,12 @@
       <div>
         <h3 style="font-family:'Playfair Display',sans-serif;font-size:1.5rem;color:var(--lime);text-transform:uppercase;margin-bottom:1.5rem;">Achievements</h3>
         <ul class="achievements-list">
-          <li>Competed in the ITF Junior circuit at the international level</li>
-          <li>Career High Asian Ranking of #26</li>
-          <li>Multiple State-level championship titles</li>
-          <li>National-level tournament awards and recognition</li>
-          <li>Dedicated to fitness and a disciplined lifestyle on and off the court</li>
+          <li>Competed at the international level in countries like Nepal, Sri Lanka and Indonesia</li>
+          <li>Achieved a career high international rank of 3417, World Tennis Number of 27.1 and UTR of 8.75</li>
+          <li>Career High Asian Ranking of #26, reaching the semi finals and achieving tournament position #4</li>
+          <li>Active National Player since the age of 10</li>
         </ul>
+        <a href="https://www.itftennis.com/en/players/nived-ponnapa-konerira/800659389/ind/jt/d/" target="_blank" class="itf-link">View ITF Profile &rarr;</a>
       </div>
     </div>
   </section>
@@ -724,25 +784,33 @@
       <h2>Robotics</h2>
       <div class="accent-line accent-blue"></div>
     </div>
-    <div class="robotics-card fade-in">
-      <div class="robotics-text">
-        <h3>Drone — Built From Scratch</h3>
-        <p>
-          Beyond the tennis court, I channel my curiosity into engineering. I designed and built a fully functional drone from the ground up &mdash; from selecting components and wiring circuits to programming the flight controller.
-        </p>
-        <p>
-          This project was part of a greater vision to explore how technology can solve real-world problems. Every challenge in the build &mdash; balancing propellers, calibrating sensors, debugging code &mdash; taught me problem-solving skills that go far beyond the workshop.
-        </p>
-        <div class="tech-stack">
-          <span>Flight Controller</span>
-          <span>Arduino</span>
-          <span>3D Design</span>
-          <span>Electronics</span>
-          <span>Programming</span>
+    <div class="robotics-grid fade-in">
+      <div class="robotics-card">
+        <div class="robotics-text">
+          <h3>Landslide Detection Drone &mdash; Built From Scratch</h3>
+          <p>
+            Beyond the tennis court, I channel my curiosity into engineering. I designed and built a fully functional drone with vibration and soil moisture from the ground up &mdash; from selecting components and wiring circuits to programming the flight controller.
+          </p>
+          <p>
+            This project was part of a greater vision to explore how technology can solve real-world problems like warning a community of impending landslide disasters. Every challenge in the build &mdash; balancing propellers, calibrating sensors with the drone code, debugging code &mdash; taught me problem-solving skills that go far beyond the workshop.
+          </p>
+          <div class="tech-stack">
+            <span>Flight Controller</span>
+            <span>Soil Moisture Sensor</span>
+            <span>Vibration Sensor</span>
+            <span>Arduino</span>
+            <span>Electronics</span>
+            <span>Programming</span>
+          </div>
+        </div>
+        <div class="robotics-image">
+          <img src="images/nived-drone.jpg" alt="Nived's landslide detection drone">
         </div>
       </div>
-      <div class="robotics-image">
-        <img src="images/nived-drone.jpg" alt="Nived's custom-built drone">
+      <div class="coming-soon-card">
+        <div class="coming-soon-text">
+          <h3>Coming Soon</h3>
+        </div>
       </div>
     </div>
   </section>
@@ -755,23 +823,23 @@
     </div>
     <div class="art-grid fade-in">
       <div class="art-card">
-        <img src="images/sketch-goku-1.jpg" alt="Goku sketch">
+        <img src="images/sketch-goku-1.jpg" alt="Goku - Mastered Ultra Instinct">
         <div class="overlay">
-          <h4>Goku &mdash; Ultra Instinct</h4>
+          <h4>Goku &mdash; Mastered Ultra Instinct</h4>
           <p>Pencil sketch</p>
         </div>
       </div>
       <div class="art-card">
-        <img src="images/sketch-goku-2.jpg" alt="Goku sketch">
+        <img src="images/sketch-goku-2.jpg" alt="Gogeta - God Ki">
         <div class="overlay">
-          <h4>Goku &mdash; Super Saiyan</h4>
+          <h4>Gogeta &mdash; God Ki</h4>
           <p>Pencil sketch</p>
         </div>
       </div>
       <div class="art-card">
-        <img src="images/sketch-goku-3.jpg" alt="Dragon Ball Z sketch">
+        <img src="images/sketch-goku-3.jpg" alt="Goku - Super Saiyan Blue">
         <div class="overlay">
-          <h4>Dragon Ball Z</h4>
+          <h4>Goku &mdash; Super Saiyan Blue</h4>
           <p>Pencil sketch</p>
         </div>
       </div>
@@ -789,8 +857,7 @@
         Whether it's about tennis, robotics collaborations, or just connecting &mdash; I'd love to hear from you.
       </p>
       <div class="contact-links">
-        <a href="mailto:nived@example.com" class="btn-lime">Email Me</a>
-        <a href="https://instagram.com/" target="_blank" class="btn-outline">Instagram</a>
+        <a href="mailto:nived.ponaps2.0@gmail.com" class="btn-lime">Email Me</a>
       </div>
     </div>
   </section>
